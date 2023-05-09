@@ -1,0 +1,22 @@
+diff -Naur test/gcc/config/avr32/avr32.c test2/gcc/config/avr32/avr32.c
+--- test/gcc/config/avr32/avr32.c	2010-02-24 22:16:59.000000000 +0100
++++ test2/gcc/config/avr32/avr32.c	2010-02-24 22:30:12.000000000 +0100
+@@ -6526,13 +6526,16 @@
+ 		continue;
+ 
+ 	      /* Check if casted register is used in this insn */
+-	      if ((regno_use_in (REGNO (reg), PATTERN (scan)) != NULL_RTX)
++	      /* if ((regno_use_in (REGNO (reg), PATTERN (scan)) != NULL_RTX)
+ 		  && (GET_MODE (regno_use_in (REGNO (reg), PATTERN (scan))) ==
+-		      GET_MODE (reg)))
++		      GET_MODE (reg))) */ /* (CHZ) */
++              if ((regno_use_in (REGNO (reg), PATTERN (scan)) != NULL_RTX))
+ 		{
+ 		  /* If not used in the source to the set or in a memory
+ 		     expression in the destiantion then the register is used
+ 		     as a destination and is really dead. */
++		  if (GET_MODE(regno_use_in (REGNO (reg), PATTERN (scan))) ==
++                       GET_MODE (reg))
+ 		  if (single_set (scan)
+ 		      && GET_CODE (PATTERN (scan)) == SET
+ 		      && REG_P (SET_DEST (PATTERN (scan)))
