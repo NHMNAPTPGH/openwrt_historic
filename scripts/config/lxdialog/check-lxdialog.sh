@@ -8,17 +8,17 @@ ldflags()
 		for dir in "" /usr/local/lib /opt/local/lib; do
 			$cc ${dir:+-L$dir} -print-file-name=libncursesw.$ext | grep -q /
 			if [ $? -eq 0 ]; then
-				echo $dir '-lncursesw'
+				echo $dir '-lncursesw -ltinfow'
 				exit
 			fi
 			$cc ${dir:+-L$dir} -print-file-name=libncurses.$ext | grep -q /
 			if [ $? -eq 0 ]; then
-				echo $dir '-lncurses'
+				echo $dir '-lncurses -ltinfo'
 				exit 
 			fi
 			$cc ${dir:+-L$dir} -print-file-name=libcurses.$ext | grep -q /
 			if [ $? -eq 0 ]; then
-				echo $dir '-lcurses'
+				echo $dir '-lcurses -ltinfo'
 				exit
 			fi
 		done
